@@ -980,5 +980,35 @@
     event.target.classList.add('active');
   }
 </script>
+
+<!-- Logo watermark -->
+<div style="
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(600px, 80vw);
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(1px);
+" id="logo-watermark">
+  <svg viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;fill:#ffffff;">
+    <use href="#hove-logo"/>
+  </svg>
+</div>
+
+<script>
+  // Hide watermark when hero is visible
+  const hero = document.getElementById('hero');
+  const watermark = document.getElementById('logo-watermark');
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      watermark.style.opacity = e.isIntersecting ? '0' : '0.04';
+    });
+  }, { threshold: 0.3 });
+  heroObserver.observe(hero);
+</script>
+
 </body>
 </html>
