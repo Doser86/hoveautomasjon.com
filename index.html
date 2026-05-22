@@ -11,8 +11,8 @@
       --bg: #0a0a0a;
       --surface: #111111;
       --border: #222;
-      --accent: #e8ff00;
-      --accent2: #ff4d00;
+      --accent: #a855f7;
+      --accent2: #0ea5e9;
       --text: #f0f0f0;
       --muted: #666;
       --font-display: 'Bebas Neue', sans-serif;
@@ -37,9 +37,7 @@
       background: rgba(10,10,10,0.88);
       backdrop-filter: blur(12px);
     }
-    .nav-logo { display: flex; align-items: center; text-decoration: none; }
-    .nav-logo svg { height: 38px; width: auto; fill: var(--text); transition: fill 0.2s; }
-    .nav-logo:hover svg { fill: var(--accent); }
+    .nav-logo { display: none; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
       color: var(--muted);
@@ -55,31 +53,18 @@
     #hero {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       position: relative;
       overflow: hidden;
     }
     .hero-left {
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 8rem 3rem 4rem 3rem;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+      padding: 5rem 3rem 4rem 3rem;
       position: relative; z-index: 2;
     }
-    .hero-tag {
-      font-size: 0.7rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 2rem;
-      display: flex; align-items: center; gap: 0.8rem;
-    }
-    .hero-tag::before {
-      content: '';
-      display: block; width: 2rem; height: 1px;
-      background: var(--accent);
-    }
     .hero-logo {
-      width: min(420px, 90%);
-      margin-bottom: 2rem;
+      width: min(600px, 90%);
+      margin-bottom: 1.5rem;
     }
     .hero-logo svg {
       width: 100%;
@@ -87,14 +72,14 @@
       fill: var(--text);
     }
     .hero-desc {
-      font-size: 1rem;
-      line-height: 1.75;
-      color: var(--muted);
-      max-width: 360px;
-      margin-bottom: 3rem;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--text);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
     }
     .hero-cta {
-      display: flex; gap: 1rem; flex-wrap: wrap;
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
     }
     .btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
@@ -107,37 +92,32 @@
       border: none; cursor: pointer;
       transition: all 0.25s;
     }
-    .btn-primary { background: var(--accent); color: #000; font-weight: 500; }
-    .btn-primary:hover { background: #fff; }
+    .btn-primary { background: linear-gradient(135deg, #a855f7, #0ea5e9); color: #fff; font-weight: 500; }
+    .btn-primary:hover { background: linear-gradient(135deg, #0ea5e9, #a855f7); color: #fff; }
     .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
-    .hero-right { position: relative; overflow: hidden; }
-    .hero-grid {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(232,255,0,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(232,255,0,0.05) 1px, transparent 1px);
-      background-size: 60px 60px;
-      animation: gridDrift 20s linear infinite;
-    }
-    @keyframes gridDrift { to { transform: translateY(60px); } }
-    .hero-graphic {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .cog-wrap { position: relative; width: 320px; height: 320px; }
-    .cog {
+    /* SCROLL INDICATOR */
+    .scroll-indicator {
       position: absolute;
-      border-radius: 50%;
-      border: 2px solid;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
     }
-    .cog-1 { width: 260px; height: 260px; top: 30px; left: 30px; border-color: var(--accent); animation: spinCW 18s linear infinite; }
-    .cog-2 { width: 160px; height: 160px; top: 80px; left: 80px; border-color: var(--accent2); border-style: dashed; animation: spinCCW 10s linear infinite; }
-    .cog-3 { width: 80px; height: 80px; top: 120px; left: 120px; border-color: var(--accent); animation: spinCW 5s linear infinite; }
-    .cog-dot { position: absolute; width: 14px; height: 14px; background: var(--accent); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%,-50%); }
-    @keyframes spinCW  { to { transform: rotate(360deg);  } }
-    @keyframes spinCCW { to { transform: rotate(-360deg); } }
+    .scroll-indicator span {
+      display: block;
+      width: 20px; height: 20px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(45deg);
+      animation: scrollBounce 1.5s infinite;
+    }
+    .scroll-indicator span:nth-child(2) { animation-delay: 0.2s; opacity: 0.5; }
+    @keyframes scrollBounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); opacity: 1; }
+      50% { transform: rotate(45deg) translateY(6px); opacity: 0.3; }
+    }
 
     /* SERVICES */
     #tjenester { padding: 7rem 3rem; }
@@ -185,12 +165,103 @@
       letter-spacing: 0.05em;
       margin-bottom: 0.8rem;
     }
-    .service-card p { font-size: 0.88rem; line-height: 1.7; color: var(--muted); }
+    .service-card p { font-size: 0.88rem; line-height: 1.7; color: var(--text); }
     .service-num {
       position: absolute; bottom: 1rem; right: 1.5rem;
       font-family: var(--font-display);
       font-size: 4rem;
       color: rgba(255,255,255,0.03);
+    }
+
+    /* PRISER */
+    #priser {
+      padding: 7rem 3rem;
+      border-top: 1px solid var(--border);
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+    .pricing-card {
+      border: 1px solid var(--border);
+      padding: 3rem 2.5rem;
+      position: relative;
+      background: var(--bg);
+      transition: border-color 0.3s;
+    }
+    .pricing-card:hover { border-color: var(--accent); }
+    .pricing-card.featured {
+      border-color: var(--accent);
+      background: var(--surface);
+    }
+    .pricing-badge {
+      position: absolute; top: -1px; right: 2rem;
+      background: var(--accent);
+      color: #000;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      font-weight: 500;
+    }
+    .pricing-category {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .pricing-card h3 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+    .pricing-price {
+      margin-bottom: 2rem;
+    }
+    .pricing-price .amount {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .pricing-price .from {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .pricing-price .unit {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-left: 0.3rem;
+    }
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 2.5rem;
+    }
+    .pricing-features li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .pricing-features li::before {
+      content: '→';
+      color: var(--accent);
+      font-size: 0.8rem;
+    }
+    .pricing-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 1rem;
+      font-style: italic;
     }
 
     /* OM OSS */
@@ -224,7 +295,99 @@
     }
     .ab1 { width: 70%; height: 52%; top: 0; right: 0; border-color: var(--accent); color: var(--accent); }
     .ab2 { width: 55%; height: 40%; bottom: 0; left: 0; color: var(--muted); }
-    .ab3 { width: 32%; height: 28%; bottom: 14%; right: 4%; background: var(--accent); color: #000; font-size: 0.8rem; }
+    .ab3 { width: 32%; height: 28%; bottom: 14%; right: 4%; background: linear-gradient(135deg, #a855f7, #0ea5e9); color: #fff; font-size: 0.8rem; }
+
+
+    /* GALLERI */
+    #galleri {
+      padding: 7rem 3rem;
+      border-top: 1px solid var(--border);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+    .gallery-item:first-child {
+      grid-column: span 2;
+      aspect-ratio: 2/1;
+    }
+    .gallery-item:hover { border-color: #a855f7; }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.8rem;
+      color: var(--muted);
+    }
+    .gallery-placeholder span { font-size: 2rem; }
+    .gallery-placeholder p {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex; align-items: flex-end;
+      padding: 1.5rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay-text {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      color: #fff;
+    }
+
+    /* PROSESS TABS */
+    .process-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 3rem;
+      border: 1px solid var(--border);
+      width: fit-content;
+    }
+    .process-tab {
+      padding: 0.8rem 2rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      font-family: var(--font-body);
+      transition: all 0.2s;
+      border-right: 1px solid var(--border);
+    }
+    .process-tab:last-child { border-right: none; }
+    .process-tab.active {
+      background: linear-gradient(135deg, #a855f7, #0ea5e9);
+      color: #fff;
+    }
+    .process-tab:hover:not(.active) { color: #a855f7; }
+    .process-panel { display: none; }
+    .process-panel.active { display: grid; }
 
     /* PROSESS */
     #prosess {
@@ -320,22 +483,37 @@
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
-      #hero, #om, #kontakt { grid-template-columns: 1fr; }
-      .hero-right { height: 280px; }
+      #om, #kontakt { grid-template-columns: 1fr; }
       #om { gap: 3rem; }
       .process-steps { grid-template-columns: 1fr 1fr; }
       .process-steps::before { display: none; }
       nav { padding: 1rem 1.5rem; }
-      #tjenester, #om, #prosess, #kontakt { padding: 5rem 1.5rem; }
-      .hero-left { padding: 7rem 1.5rem 3rem; }
+      #tjenester, #priser, #om, #prosess, #kontakt { padding: 5rem 1.5rem; }
       footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
     }
     @media (max-width: 600px) {
       .process-steps { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
+      .nav-links { gap: 1rem; }
       .form-row { grid-template-columns: 1fr; }
       .about-stats { grid-template-columns: 1fr; }
+      .hero-left { padding: 5rem 1.5rem 4rem; }
     }
+
+    /* FUTURISTIC GLOW */
+    .btn-primary { box-shadow: 0 0 20px rgba(168,85,247,0.35); }
+    .btn-primary:hover { box-shadow: 0 0 35px rgba(14,165,233,0.5); }
+    .stat-num { text-shadow: 0 0 20px rgba(168,85,247,0.5); }
+    nav { border-bottom: 1px solid rgba(168,85,247,0.25) !important; }
+    .pricing-card.featured { box-shadow: 0 0 50px rgba(168,85,247,0.12); }
+    .pricing-badge { background: linear-gradient(135deg, #a855f7, #0ea5e9) !important; color: #fff !important; }
+    .hero-logo svg { filter: drop-shadow(0 0 40px rgba(168,85,247,0.25)); }
+    h2 { background: linear-gradient(135deg, #fff 40%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .section-label { color: #0ea5e9 !important; }
+    .scroll-indicator span { border-right-color: #a855f7; border-bottom-color: #0ea5e9; }
+    .process-steps::before { background: linear-gradient(90deg, #a855f7, #0ea5e9, #a855f7) !important; }
+    .step-num { color: #a855f7 !important; border-color: rgba(168,85,247,0.3) !important; }
+    .about-box.ab1 { border-color: #a855f7 !important; color: #a855f7 !important; }
+
   </style>
 </head>
 <body>
@@ -354,7 +532,9 @@
   </a>
   <ul class="nav-links">
     <li><a href="#tjenester">Tjenester</a></li>
+    <li><a href="#priser">Priser</a></li>
     <li><a href="#om">Om oss</a></li>
+    <li><a href="#galleri">Galleri</a></li>
     <li><a href="#prosess">Prosess</a></li>
     <li><a href="#kontakt">Kontakt</a></li>
   </ul>
@@ -363,30 +543,22 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-left">
-    <div class="hero-tag">høveautomasjon.com</div>
     <div class="hero-logo">
       <svg viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg">
         <use href="#hove-logo"/>
       </svg>
     </div>
     <p class="hero-desc">
-      Skreddersydde automasjonsløsninger, kreativt design, 3D-printing og presisjons­gravering – fra idé til ferdig produkt.
+      Ønsker du smarthus som kan alt? Vi tilbyr skreddersydde løsninger som passer deg, kreativt design, 3D-printing og presisjons­gravering – fra idé til ferdig produkt.
     </p>
     <div class="hero-cta">
       <a href="#kontakt" class="btn btn-primary">Ta kontakt</a>
       <a href="#tjenester" class="btn btn-outline">Se tjenester</a>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="hero-grid"></div>
-    <div class="hero-graphic">
-      <div class="cog-wrap">
-        <div class="cog cog-1"></div>
-        <div class="cog cog-2"></div>
-        <div class="cog cog-3"></div>
-        <div class="cog-dot"></div>
-      </div>
-    </div>
+  <div class="scroll-indicator">
+    <span></span>
+    <span></span>
   </div>
 </section>
 
@@ -424,6 +596,72 @@
   </div>
 </section>
 
+<!-- PRISER -->
+<section id="priser">
+  <div class="section-header reveal">
+    <div class="section-label">Hva koster det</div>
+    <h2>PRISER</h2>
+  </div>
+  <div class="pricing-grid reveal">
+
+    <div class="pricing-card">
+      <div class="pricing-category">3D-printing</div>
+      <h3>PRINT</h3>
+      <div class="pricing-price">
+        <span class="from">Fra</span>
+        <span class="amount">149</span>
+        <span class="unit">kr</span>
+      </div>
+      <ul class="pricing-features">
+        <li>Enkle deler og prototyper</li>
+        <li>PLA, PETG og flere materialer</li>
+        <li>Levering 2–5 virkedager</li>
+        <li>Fil sendes digitalt eller vi designer</li>
+      </ul>
+      <a href="#kontakt" class="btn btn-outline" style="width:100%;justify-content:center;">Be om tilbud</a>
+      <p class="pricing-note">Pris avhenger av størrelse og materiale.</p>
+    </div>
+
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Populær</div>
+      <div class="pricing-category">Gravering</div>
+      <h3>GRAVERING</h3>
+      <div class="pricing-price">
+        <span class="from">Fra</span>
+        <span class="amount">199</span>
+        <span class="unit">kr</span>
+      </div>
+      <ul class="pricing-features">
+        <li>Tre, metall, plast og lær</li>
+        <li>Logoer, tekst og illustrasjoner</li>
+        <li>Personlige gaver og skilter</li>
+        <li>Rask levering</li>
+      </ul>
+      <a href="#kontakt" class="btn btn-primary" style="width:100%;justify-content:center;">Be om tilbud</a>
+      <p class="pricing-note">Rabatt ved større bestillinger.</p>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-category">Automasjon & Design</div>
+      <h3>PROSJEKT</h3>
+      <div class="pricing-price">
+        <span class="from">Fra</span>
+        <span class="amount">990</span>
+        <span class="unit">kr/t</span>
+      </div>
+      <ul class="pricing-features">
+        <li>Smarthjem og automasjon</li>
+        <li>Logo og grafisk design</li>
+        <li>Skreddersydd løsning</li>
+        <li>Gratis innledende konsultasjon</li>
+      </ul>
+      <a href="#kontakt" class="btn btn-outline" style="width:100%;justify-content:center;">Ta kontakt</a>
+      <p class="pricing-note">Fast pris kan avtales for større prosjekter.</p>
+    </div>
+
+  </div>
+</section>
+
 <!-- OM OSS -->
 <section id="om">
   <div class="about-content reveal">
@@ -456,32 +694,117 @@
   </div>
 </section>
 
+<!-- GALLERI -->
+<section id="galleri">
+  <div class="section-header reveal">
+    <div class="section-label">Vårt arbeid</div>
+    <h2>GRAVERING</h2>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item">
+ <img src="DogTag.jpg" alt="Gravering eksempel">
+      </div>
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Treboks gravering</span></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <span>🖼️</span>
+        <p>Legg til bilde</p>
+      </div>
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Metallskilt</span></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <span>🖼️</span>
+        <p>Legg til bilde</p>
+      </div>
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Personlig gave</span></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <span>🖼️</span>
+        <p>Legg til bilde</p>
+      </div>
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Logo gravering</span></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <span>🖼️</span>
+        <p>Legg til bilde</p>
+      </div>
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Dekorativt panel</span></div>
+    </div>
+  </div>
+</section>
+
 <!-- PROSESS -->
 <section id="prosess">
   <div class="section-header reveal">
     <div class="section-label">Hvordan vi jobber</div>
     <h2>PROSESS</h2>
   </div>
-  <div class="process-steps reveal">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h4>DIALOG</h4>
-      <p>Vi starter med en uforpliktende samtale om ditt behov, ønsker og budsjett.</p>
+  <div class="reveal">
+    <div class="process-tabs">
+      <button class="process-tab active" onclick="switchTab('design')">✏️ Design & Gravering</button>
+      <button class="process-tab" onclick="switchTab('smarthus')">🏠 Smarthus & Automasjon</button>
     </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h4>DESIGN</h4>
-      <p>Vi utformer et konsept og presenterer løsninger tilpasset deg.</p>
+
+    <!-- Design / Gravering / 3D -->
+    <div class="process-panel process-steps active" id="panel-design" style="grid-template-columns: repeat(4,1fr);">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>IDÉ</h4>
+        <p>Du beskriver hva du ønsker – logo, tekst, motiv eller produkt. Vi hjelper deg å forme ideen.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>DESIGN</h4>
+        <p>Vi lager en digital skisse eller tilpasser filen din. Du godkjenner før vi starter.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>PRODUKSJON</h4>
+        <p>Vi printer eller graverer med høy presisjon. Kvalitetskontroll underveis.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h4>LEVERING</h4>
+        <p>Ferdig produkt sendes eller hentes. Rask levering, alltid pakket forsvarlig.</p>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h4>PRODUKSJON</h4>
-      <p>Vi realiserer løsningen – enten det er kode, print eller gravering.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">04</div>
-      <h4>LEVERING</h4>
-      <p>Du mottar et ferdig, kvalitetssikret produkt klart til bruk.</p>
+
+    <!-- Smarthus -->
+    <div class="process-panel process-steps" id="panel-smarthus" style="grid-template-columns: repeat(6,1fr);">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>KARTLEGGING</h4>
+        <p>Vi går igjennom boligen og dine ønsker. Hva skal automatiseres? Hvilke systemer finnes allerede?</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>LØSNING</h4>
+        <p>Vi anbefaler riktig plattform – Home Assistant, Matter, Zigbee eller annet – og lager en plan.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>INSTALLASJON</h4>
+        <p>Vi installerer hardware, setter opp nettverk og kobler alt sammen.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h4>PROGRAMMERING</h4>
+        <p>Automasjoner, scener og dashboards settes opp etter dine ønsker og rutiner.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <h4>OPPLÆRING</h4>
+        <p>Vi viser deg hvordan systemet fungerer og svarer på spørsmål.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">06</div>
+        <h4>SUPPORT</h4>
+        <p>Vi er tilgjengelig for justeringer og oppgraderinger i etterkant.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -562,6 +885,13 @@
     });
   }, { threshold: 0.12 });
   revealEls.forEach(el => observer.observe(el));
+
+  function switchTab(tab) {
+    document.querySelectorAll('.process-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.process-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+    event.target.classList.add('active');
+  }
 </script>
 </body>
 </html>
