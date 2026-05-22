@@ -74,6 +74,22 @@
       overflow-x: hidden;
     }
 
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 40% at 15% 20%, rgba(168,85,247,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 35% at 85% 70%, rgba(14,165,233,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 50% 50%, rgba(168,85,247,0.04) 0%, transparent 70%),
+        radial-gradient(ellipse 30% 25% at 80% 15%, rgba(14,165,233,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 35% 20% at 20% 80%, rgba(168,85,247,0.05) 0%, transparent 60%);
+    }
+
+    nav, section, footer { position: relative; z-index: 1; }
+
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -299,11 +315,12 @@
       margin-bottom: 2.5rem;
     }
     .pricing-features li {
-      font-size: 0.88rem;
-      color: var(--muted);
+      font-size: 1rem;
+      color: #ffffff;
       padding: 0.5rem 0;
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; gap: 0.7rem;
+}
     }
     .pricing-features li::before {
       content: '→';
@@ -326,12 +343,13 @@
       align-items: center;
       border-top: 1px solid var(--border);
     }
-    #om p { color: var(--muted); line-height: 1.8; margin-top: 1.5rem; font-size: 0.95rem; }
+    #om p { color: #ffffff; line-height: 1.8; margin-top: 0; font-size: 1.3rem; }
     .about-stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-top: 3rem;
+      gap: 3rem;
+      margin-top: 4rem;
+    }
     }
     .stat { border-left: 2px solid var(--accent); padding-left: 1.2rem; }
     .stat-num { font-family: var(--font-display); font-size: 3rem; line-height: 1; color: var(--accent); }
@@ -458,9 +476,38 @@
     .process-steps::before {
       content: '';
       position: absolute;
-      top: 2rem; left: 2rem; right: 2rem;
+      top: 4rem; left: 2rem; right: 2rem;
       height: 1px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+      background: rgba(255,255,255,0.1);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    #panel-design.active::before {
+      background: linear-gradient(90deg, #a855f7, #c084fc, #a855f7) !important;
+      box-shadow: 0 0 10px rgba(168,85,247,0.7), 0 0 20px rgba(168,85,247,0.3) !important;
+      height: 2px !important;
+    }
+    #panel-smarthus.active::before {
+      background: linear-gradient(90deg, #0ea5e9, #38bdf8, #0ea5e9) !important;
+      box-shadow: 0 0 10px rgba(14,165,233,0.7), 0 0 20px rgba(14,165,233,0.3) !important;
+      height: 2px !important;
+    }
+    /* Fallback: inject pseudo via overlay span */
+    .process-line {
+      display: block;
+      position: absolute;
+      top: 4rem; left: 2rem; right: 2rem;
+      height: 2px;
+      z-index: 2;
+      pointer-events: none;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    #panel-design.active .process-line {
+      background: linear-gradient(90deg, #a855f7, #c084fc, #a855f7);
+      box-shadow: 0 0 10px rgba(168,85,247,0.8), 0 0 25px rgba(168,85,247,0.4);
+    }
+    #panel-smarthus.active .process-line {
+      background: linear-gradient(90deg, #0ea5e9, #38bdf8, #0ea5e9);
+      box-shadow: 0 0 10px rgba(14,165,233,0.8), 0 0 25px rgba(14,165,233,0.4);
     }
     .step { padding: 5rem 2rem 2rem; position: relative; }
     .step-num {
@@ -564,7 +611,7 @@
     h2 { background: linear-gradient(135deg, #fff 40%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .section-label { color: #0ea5e9 !important; }
     .scroll-indicator span { border-right-color: #a855f7; border-bottom-color: #0ea5e9; }
-    .process-steps::before { background: linear-gradient(90deg, #a855f7, #0ea5e9, #a855f7) !important; }
+
     .step-num { color: #a855f7 !important; border-color: rgba(168,85,247,0.3) !important; }
     .about-box.ab1 { border-color: #a855f7 !important; color: #a855f7 !important; }
 
@@ -723,6 +770,7 @@
     <div class="section-label">Hvem vi er</div>
     <h2>OM HØVE<br>AUTOMASJON<br>& DESIGN</h2>
     <p>Vi er entusiastiske mennesker innenfor bygg og bolig generelt. Det startet med tømrerutdanning og videre ingeniørutdanning innen bygg. Interessen for komplette bygg har videreutviklet seg til å integrere smart teknologi i nye eller eksisterende bygg. Vi har holdt på med smarthus i 13 år og fulgt teknologien tett med personlige interesser. Hovedsystemet vi anbefaler og har best ekspertise på er Home Assistant. Med spesielle løsninger ble det naturlig å begynne å designe og produsere egne deler. På denne måten kom vi også inn på 3D-printing og gravering. Dette har videre utviklet seg til designing av mange nyttige og spennende ting. I dag tilbyr vi komplette løsninger innen smarthus, 3D-printing, gravering og design – alt under ett tak.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3.5rem;padding-top:2rem;border-top:1px solid rgba(168,85,247,0.2);">
       <div class="stat">
         <div class="stat-num">4+</div>
         <div class="stat-label">Tjenesteområder</div>
@@ -738,6 +786,7 @@
       <div class="stat">
         <div class="stat-num">∞</div>
         <div class="stat-label">Muligheter</div>
+      </div>
       </div>
     </div>
   </div>
@@ -779,7 +828,7 @@
         <button class="process-tab" onclick="switchTab('smarthus')">🏠 Smarthus & Automasjon</button>
       </div>
     <!-- Design / Gravering / 3D -->
-    <div class="process-panel process-steps active" id="panel-design" style="grid-template-columns: repeat(4,1fr);">
+    <div class="process-panel process-steps active" id="panel-design" style="grid-template-columns: repeat(4,1fr);"><span class="process-line"></span>
       <div class="step">
         <div class="step-num">01</div>
         <h4>IDÉ</h4>
@@ -803,7 +852,7 @@
     </div>
 
     <!-- Smarthus -->
-    <div class="process-panel process-steps" id="panel-smarthus" style="grid-template-columns: repeat(6,1fr);">
+    <div class="process-panel process-steps" id="panel-smarthus" style="grid-template-columns: repeat(6,1fr);"><span class="process-line"></span>
       <div class="step">
         <div class="step-num">01</div>
         <h4>KARTLEGGING</h4>
