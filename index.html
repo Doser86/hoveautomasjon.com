@@ -108,6 +108,13 @@
       padding: 5rem 3rem 1rem 3rem;
       position: relative; z-index: 2;
     }
+    .hero-logo-svg {
+      width: 400px;
+      max-width: 90%;
+      height: auto;
+      fill: var(--text);
+      padding: 0;
+    }
     .hero-logo {
       width: min(600px, 90%);
       margin-bottom: 0.5rem;
@@ -591,7 +598,9 @@
 <section id="hero">
   <div class="hero-left">
     <div class="hero-logo">
-      <img src="Høve Automasjon & Design.svg" alt="Høve Automasjon & Design" style="filter: invert(1); width: 400px; max-width: 90%;">
+      <svg viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg" class="hero-logo-svg">
+        <use href="#hove-logo"/>
+      </svg>
     </div>
     <p class="hero-desc">
       Ønsker du smarthus som kan alt? Vi tilbyr skreddersydde løsninger som passer deg, kreativt design, 3D-printing og presisjons­gravering – fra idé til ferdig produkt.
