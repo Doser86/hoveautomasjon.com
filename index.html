@@ -453,11 +453,18 @@
       border-right: 1px solid var(--border);
     }
     .process-tab:last-child { border-right: none; }
-    .process-tab.active {
-      background: linear-gradient(135deg, #a855f7, #0ea5e9);
+    .process-tab.active { color: #fff; }
+    .process-tab.active-design {
+      background: #a855f7;
+      box-shadow: 0 0 18px rgba(168,85,247,0.7);
       color: #fff;
     }
-    .process-tab:hover:not(.active) { color: #a855f7; }
+    .process-tab.active-smarthus {
+      background: #0ea5e9;
+      box-shadow: 0 0 18px rgba(14,165,233,0.7);
+      color: #fff;
+    }
+    .process-tab:hover:not(.active-design):not(.active-smarthus) { color: #a855f7; }
     .process-panel { display: none; }
     .process-panel.active { display: grid; }
 
@@ -613,6 +620,8 @@
     .scroll-indicator span { border-right-color: #a855f7; border-bottom-color: #0ea5e9; }
 
     .step-num { color: #a855f7 !important; border-color: rgba(168,85,247,0.3) !important; }
+    #panel-smarthus .step-num { color: #0ea5e9 !important; border-color: rgba(14,165,233,0.4) !important; box-shadow: 0 0 10px rgba(14,165,233,0.3); }
+    #panel-design .step-num { color: #a855f7 !important; border-color: rgba(168,85,247,0.4) !important; box-shadow: 0 0 10px rgba(168,85,247,0.3); }
     .about-box.ab1 { border-color: #a855f7 !important; color: #a855f7 !important; }
 
   </style>
@@ -716,7 +725,7 @@
       <h3>PRINT</h3>
       <div class="pricing-price">
         <span class="from">Fra</span>
-        <span class="amount">299</span>
+        <span class="amount">149</span>
         <span class="unit">kr</span>
       </div>
       <ul class="pricing-features">
@@ -849,7 +858,7 @@
     </div>
     <div class="reveal">
       <div class="process-tabs">
-        <button class="process-tab active" onclick="switchTab('design')">✏️ Design & Gravering</button>
+        <button class="process-tab active active-design" onclick="switchTab('design')">✏️ Design & Gravering</button>
         <button class="process-tab" onclick="switchTab('smarthus')">🏠 Smarthus & Automasjon</button>
       </div>
     <!-- Design / Gravering / 3D -->
@@ -1000,11 +1009,15 @@
   }
 
   function switchTab(tab) {
-    document.querySelectorAll('.process-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.process-tab').forEach(t => {
+      t.classList.remove('active', 'active-design', 'active-smarthus');
+    });
     document.querySelectorAll('.process-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + tab).classList.add('active');
-    event.target.classList.add('active');
+    event.target.classList.add('active', 'active-' + tab);
   }
+  // Set initial state
+  document.querySelector('.process-tab').classList.add('active-design');
 </script>
 
 <!-- Logo watermark -->
